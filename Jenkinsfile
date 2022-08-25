@@ -3,9 +3,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-//                 script{
+                script{
 //                     sh "docker-compose up"
-//                 }
+                       sh "docker images"
+                       sh "docker ps"
+                }
                 echo 'Build Successful' 
             }
         }
