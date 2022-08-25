@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+        apache:
+                build: ./apache
+                container_name: apache-con
+                ports: 
+                        - 9000:80
+                volumes:
+                        - ./apache:/var/www/html
+                depends_on:
+                        - mysql
+        mysql:
+                build: ./mysql
+                container_name: mysql-con
+                restart: always
+                ports: 
+                        - 3306:3306
+                volumes:
+                        - ./mysql:/docker-entrypoint-initdb.d
+                environment: 
+                        MYSQL_ROOT_PASSWORD: root
