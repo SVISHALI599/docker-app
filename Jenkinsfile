@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script{
                        sh "sudo aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 894811220469.dkr.ecr.us-east-1.amazonaws.com "
-                       sh "docker run --name python-container -d python"
+                       sh "docker run --name python-devcon -d python"
 //                        sh "docker build -t testing ."
                        sh "docker tag python 894811220469.dkr.ecr.us-east-1.amazonaws.com/demo-repo:latest"
                        sh "docker push 894811220469.dkr.ecr.us-east-1.amazonaws.com/demo-repo:latest"
@@ -33,6 +33,9 @@ pipeline {
                 script{
                        
                     sh "echo '${BUILD_NUMBER}'"
+                    sh "sudo aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 894811220469.dkr.ecr.us-east-1.amazonaws.com "
+                    sh "docker run --name python-qacon -d python"
+                    sh "docker tag python 894811220469.dkr.ecr.us-east-1.amazonaws.com/demo-repo:latest"
                     sh "docker push 894811220469.dkr.ecr.us-east-1.amazonaws.com/demo-repo:latest"
                 }
                 echo 'Qa Deployed successful' 
