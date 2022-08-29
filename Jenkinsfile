@@ -4,9 +4,9 @@ pipeline {
         stage('Build') {
             steps {
                 script{
+                       sh "sudo docker ps"
                        sh "sudo docker-compose up"
                        sh "sudo docker images"
-                       sh "sudo docker ps"
                 }
                 echo 'Build Successful' 
             }
