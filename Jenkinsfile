@@ -12,7 +12,7 @@ pipeline {
                 echo 'Build Successful' 
             }
         }
-        stage('Deploy') {
+        stage('Dev Deploy') {
             steps {
                 script{
                        sh "sudo aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 894811220469.dkr.ecr.us-east-1.amazonaws.com "
@@ -22,6 +22,20 @@ pipeline {
                        sh "docker push 894811220469.dkr.ecr.us-east-1.amazonaws.com/demo-repo:latest"
                 }
                 echo 'Deployed successful' 
+            }
+        }
+        stage('QA Deploy') {
+            input {
+                message "Are we good to deploy in QA?"
+                ok "Yes"
+            }
+            steps {
+                script{
+                       
+                    sh "echo '${BUILD_NUMBER}'"
+                    sh "docker push 894811220469.dkr.ecr.us-east-1.amazonaws.com/demo-repo:latest"
+                }
+                echo 'Qa Deployed successful' 
             }
         }
     }
